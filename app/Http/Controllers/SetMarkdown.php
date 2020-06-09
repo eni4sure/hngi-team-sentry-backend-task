@@ -19,16 +19,16 @@ class SetMarkdown extends Controller
         $page_name = $request->input('page_name');
 
         if ($page_name === NULL) {
-            return response()->json(['code' => 400, 'error' => 'File name not specified']);
+            return response()->json(['error_message' => 'File name not specified'], 400);
         }
 
         if (Storage::exists($page_name)) {
             $converter = new HtmlConverter();
             $markdown = $converter->convert(Storage::get($page_name));
 
-            return response()->json(['code' => 200, 'markdown_content' => $markdown]);
+            return response()->json(['markdown_content' => $markdown], 200);
         } else {
-            return response()->json(['code' => 404, 'error' => 'File not found']);
+            return response()->json(['error_message' => 'File not found'], 404);
         }
     }
 }

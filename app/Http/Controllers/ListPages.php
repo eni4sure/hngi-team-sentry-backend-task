@@ -19,7 +19,7 @@ class ListPages extends Controller
             return '.gitignore' !== $fileName;
         });
 
-        return response()->json($files);
+        return response()->json($files, 200);
     }
 
 }
