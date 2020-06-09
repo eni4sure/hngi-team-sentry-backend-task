@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Mail\Markdown;
-
+use Illuminate\Support\HtmlString;
 class PagesController extends Controller
 {
 
@@ -20,8 +20,12 @@ class PagesController extends Controller
 
         try {
             // this will create a file on local storage with the markdown extension
-            Storage::put($title . '.md', $content);
-            return response()->json(['message' => 'Your page has been added successfully']);
+            if($title) {
+                Storage::put($title . '.md', $content);
+                return response()->json(['message' => 'Your page has been added successfully']);
+            } else {
+                return response()->json(['errors' => 'Sorry, the page title is required']);
+            }
         } catch (\Exception $e) {
             // return error response to the user
             return response()->json(['error' => $e]);
@@ -31,11 +35,29 @@ class PagesController extends Controller
     public function retrieve_page_html(Request $request) {
         $title = $request->input('page_title');
         try {
-            $markdown = Storage::get($title);
-            $html = Markdown::parse($markdown);
-            return response()->json(['html_response' => $html]);
+            if($title) {
+                if (Storage::exists($title . '.md')) {
+                    $markdown = Storage::get($title . '.md');
+                    $html = Markdown::parse($markdown);
+                    return response()->json(['html_response' => $html->toHtml()]);
+                } else {
+                    return response()->json(['errors' => 'The page you requested for does not exist.'], 404);
+                }
+            } else {
+                return response()->json(['errors' => 'Sorry, the page title is required']);
+            }
         } catch (\Exception $e) {
             return response()->json(['errors' => $e]);
         }
+    }
+
+    public function list_pages() {
+        $files = array_slice(scandir(storage_path('app/files')), 2);
+
+        if(count($files)){
+            return response()->json(['pages' => $files]);
+        } else {
+            return response()->json(['pages' => 'Sorry, you have not saved any pages with us']);
+        }  
     }
 }

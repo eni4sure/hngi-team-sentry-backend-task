@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 // end point to add a page
 Route::post('add_page', 'PagesController@set_page_markdown');
 // end point to set a page markdown
-Route::put('set_page_markdown', 'PagesController@set_page_markdowm');
+Route::post('set_page_markdown', 'PagesController@set_page_markdown');
 // this endpoint will take care of retrieving the html format of the markdown file
 Route::get('retrieve_page_html', 'PagesController@retrieve_page_html');
-
-Route::get('test', 'PagesController@test');
+// this endpoint will return the list of all pages in storage
+Route::get('list_pages', 'PagesController@list_pages');
