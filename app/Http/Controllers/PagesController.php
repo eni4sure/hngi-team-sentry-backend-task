@@ -26,6 +26,16 @@ class PagesController extends Controller
             } else {
                 return response()->json(['errors' => 'Sorry, the page title is required']);
             }
+
+            if($request->hasFile('file')) {
+                if ($request->file('file')->isValid()) {
+                    $file = $request->file('file');
+                    Storage::put($file);
+                    return response()->json(['message' => 'Your file has been uploaded successfully']);
+                } else {
+                    return response()->json(['errors' => 'The upload process had some errors, please try again']);
+                }
+            }
         } catch (\Exception $e) {
             // return error response to the user
             return response()->json(['error' => $e]);
