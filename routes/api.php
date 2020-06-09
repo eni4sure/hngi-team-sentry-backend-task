@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\AddFile;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +16,6 @@ Route::post('/add_page', 'AddFile');
 
 Route::get('/retrieve_page', 'RetrievePage');
 
-Route::post('set_page_markdown');
+Route::get('/set_page_markdown', 'SetMarkdown');
 
 Route::get('/list_pages', 'ListPages');
