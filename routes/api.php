@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/add_page', 'AddFile');
+Route::post('/add_page', 'AddFileController');
 
-Route::get('/retrieve_page', 'RetrievePage');
+Route::get('/retrieve_page', 'RetrievePageController');
 
-Route::get('/set_page_markdown', 'SetMarkdown');
+Route::get('/set_page_markdown', 'SetMarkdownController');
 
-Route::get('/list_pages', 'ListPages');
+Route::get('/list_pages', 'ListPagesController');
