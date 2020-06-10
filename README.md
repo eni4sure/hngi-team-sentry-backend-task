@@ -19,10 +19,10 @@ If the file exists it returns a json object containing the file content.
 
 ## SET PAGE MARKDOWN
 
-To retrieve a page in markdown format, the uri( server/api/set_page_markdown ) accepts a GET request with one value with key: "page_name".
+To retrieve a page in markdown format, the url( server/api/set_page_markdown ) accepts a GET request with one value with key: "page_name".
 If the file exists, it returns the contents of the file in markdown format in the body of a json object.
 Else, it returns the appropriate error code and response message.
 
 ## TO LIST PAGES
 
-To view a list of available pages, the uri( server/api/list_pages ) accept a GET request to return a json object containing the list of files.
+To view a list of available pages, the url( server/api/list_pages ) accept a GET request to return a json object containing the list of files.
