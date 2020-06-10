@@ -15,31 +15,39 @@ class AddFileController extends Controller {
      */
     public function __invoke(Request $request) {
 
-        //store the post values in input array
-        $input = $request->all();
+        try {
 
-        //initialize an empty array to store errors
-        $errors = array();
+            //store the post values in input array
+            $input = $request->all();
 
-        //if {file name is null || empty} add error to errors array
-        if ( !isset($input['file_name']) || $input['file_name'] == "" ) {
-            $errors[] = 'No file name';
-        }
+            //initialize an empty array to store errors
+            $errors = array();
 
-        //if file content is null add error to errors array
-        if (!isset($input['file_content'])) {
-            $errors[] = 'No file content';
-        }
+            //if {file name is null || empty} add error to errors array
+            if ( !isset($input['file_name']) || $input['file_name'] == "" ) {
+                $errors[] = 'No file name';
+            }
 
-        //if there are errors return error response
-        if (sizeof($errors) > 0) {
+            //if file content is null add error to errors array
+            if (!isset($input['file_content'])) {
+                $errors[] = 'No file content';
+            }
+
+            //if there are errors return error response
+            if (sizeof($errors) > 0) {
+                return response()
+                    ->json($errors, 400);
+            }
+
+            Storage::disk('local')->put($input['file_name'], $input['file_content']);
+
             return response()
-                ->json($errors, 400);
+                ->json(['success_message' => 'Page added successfully'], 201);
+
+        } catch (\Exception $e) {
+
+            return response()
+                ->json(['error' => $e], 400);
         }
-
-        Storage::disk('local')->put($input['file_name'], $input['file_content']);
-
-        return response()
-            ->json(['success_message' => 'Page added successfully'], 201);
     }
 }
