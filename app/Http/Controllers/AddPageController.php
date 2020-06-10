@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class AddFileController extends Controller {
+class AddPageController extends Controller {
 
     /**
      * Handle the incoming request.
@@ -23,14 +23,14 @@ class AddFileController extends Controller {
             //initialize an empty array to store errors
             $errors = array();
 
-            //if {file name is null || empty} add error to errors array
-            if ( !isset($input['file_name']) || $input['file_name'] == "" ) {
-                $errors[] = 'No file name';
+            //if {page name is null || empty} add error to errors array
+            if ( !isset($input['page_name']) || $input['page_name'] == "" ) {
+                $errors[] = 'No page name';
             }
 
-            //if file content is null add error to errors array
-            if (!isset($input['file_content'])) {
-                $errors[] = 'No file content';
+            //if page content is null add error to errors array
+            if (!isset($input['page_content'])) {
+                $errors[] = 'No page content';
             }
 
             //if there are errors return error response
@@ -39,7 +39,7 @@ class AddFileController extends Controller {
                     ->json($errors, 400);
             }
 
-            Storage::disk('local')->put($input['file_name'], $input['file_content']);
+            Storage::disk('local')->put($input['page_name'], $input['page_content']);
 
             return response()
                 ->json(['success_message' => 'Page added successfully'], 201);

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use League\HTMLToMarkdown\HtmlConverter;
 use Illuminate\Support\Facades\Storage;
 
-class SetMarkdownController extends Controller {
+class SetPageMarkdownController extends Controller {
 
     /**
      * Handle the incoming request.
@@ -22,7 +22,7 @@ class SetMarkdownController extends Controller {
 
             if ( $page_name === NULL || $page_name == "" ) {
                 return response()
-                    ->json(['error_message' => 'File name not specified'], 400);
+                    ->json(['error_message' => 'Page name not specified'], 400);
             }
 
             if (Storage::exists($page_name)) {
@@ -35,7 +35,7 @@ class SetMarkdownController extends Controller {
             } else {
 
                 return response()
-                    ->json(['error_message' => 'File not found'], 404);
+                    ->json(['error_message' => 'Page not found'], 404);
             }
 
         } catch (\Exception $e) {
