@@ -1,4 +1,4 @@
-#Team-Sentry Backend task with PHP
+# Team-Sentry Backend task with PHP
 
 A dockerized micro-service for managing static, external pages
 - add_page
@@ -24,4 +24,5 @@ If the file exists, it returns the contents of the file in markdown format in th
 Else, it returns the appropriate error code and response message.
 
 * TO LIST PAGES
+
 To view a list of available pages, the uri( <server>/api/list_pages ) accept a GET request to return a json object containing the list of files.
